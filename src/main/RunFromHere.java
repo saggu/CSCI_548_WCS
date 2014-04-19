@@ -14,15 +14,15 @@ public class RunFromHere {
 	 */
 	public static void main(String[] args) {
 		//ESPNGroupMatchesParser.parse();
-		Multimap<String,String> data = TeamCodes.GetTeamCodes();
+		//Multimap<String,String> data = TeamCodes.GetTeamCodes();
 		
-		Collection<String> teamCode = data.get("ARGENTINA");
+	//	Collection<String> teamCode = data.get("COSTA RICA");
 		
 				
-		for(String team:teamCode)
-		{
-			System.out.print("teams: " + team);
-		}
+		//for(String team:teamCode)
+		//{
+			//System.out.print("teams: " + team);
+	//	}
 		
 		
 

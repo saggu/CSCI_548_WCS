@@ -1,16 +1,26 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
 public class TeamCodes {
 	
-	public static Multimap<String,String> teamCodes;
+	public Multimap<String,String> teamCodes;
 	
-	public static Multimap<String, String> GetTeamCodes()
+	public TeamCodes()
+	{
+		SetTeamCodes();
+	}
+	
+	public void SetTeamCodes()
 	{
 		teamCodes = ArrayListMultimap.create();
 		
+		//Team Codes from FIFA at index 0
 		teamCodes.put("ALGERIA", "alg");
 		teamCodes.put("AUSTRALIA", "aus");
 		teamCodes.put("ARGENTINA", "arg");
@@ -44,7 +54,56 @@ public class TeamCodes {
 		teamCodes.put("UNITED STATES", "usa");
 		teamCodes.put("URUGUAY", "uru");
 		
-		return teamCodes;
+		//Team Codes from http://www.soccerbase.com at index 1
+		teamCodes.put("ALGERIA", "67");
+		teamCodes.put("AUSTRALIA", "152");
+		teamCodes.put("ARGENTINA", "128");
+		teamCodes.put("BELGIUM", "275");
+		teamCodes.put("BOSNIA-HERZEGOVIA","2984");
+		teamCodes.put("BRAZIL", "395");
+		teamCodes.put("CAMEROON", "615");
+		teamCodes.put("CHILE", "550");
+		teamCodes.put("COLOMBIA", "613");
+		teamCodes.put("COSTA RICA", "661");
+		teamCodes.put("CROATIA", "670");
+		teamCodes.put("ECUADOR", "868");
+		teamCodes.put("ENGLAND", "909");
+		teamCodes.put("FRANCE", "1040");
+		teamCodes.put("GERMANY", "1084");
+		teamCodes.put("GHANA", "3116");
+		teamCodes.put("GREECE", "1139");
+		teamCodes.put("HONDURAS", "3173");
+		teamCodes.put("IRAN", "1377");
+		teamCodes.put("ITALY", "1384");
+		teamCodes.put("IVORY COAST", "3115");
+		teamCodes.put("JAPAN", "1392");
+		teamCodes.put("MEXICO", "1788");
+		teamCodes.put("NETHERLANDS", "1843");
+		teamCodes.put("NIGERIA", "1833");
+		teamCodes.put("PORTUGAL", "2082");
+		teamCodes.put("RUSSIA", "2204");
+		teamCodes.put("SOUTH KOREA", "717");
+		teamCodes.put("SPAIN", "2428");
+		teamCodes.put("SWITZERLAND", "2527");
+		teamCodes.put("UNITED STATES", "2652");
+		teamCodes.put("URUGUAY", "2651");
+		
+		
 	}
 
+	
+	public List<String> GetTeamCodes(String teamName)
+	{
+		List<String> teamCode =  new ArrayList<String>();
+		
+		Collection<String> tc = teamCodes.get(teamName.toUpperCase());
+		
+		
+		for(String code : tc)
+		{
+			teamCode.add(code);
+		}
+		
+		return teamCode;
+	}
 }
