@@ -25,7 +25,7 @@ public class TeamCodes {
 		teamCodes.put("AUSTRALIA", "aus");
 		teamCodes.put("ARGENTINA", "arg");
 		teamCodes.put("BELGIUM", "bel");
-		teamCodes.put("BOSNIA-HERZEGOVIA","bih");
+		teamCodes.put("BOSNIA-HERZEGOVINA","bih");
 		teamCodes.put("BRAZIL", "bra");
 		teamCodes.put("CAMEROON", "cmr");
 		teamCodes.put("CHILE", "chi");
@@ -59,7 +59,7 @@ public class TeamCodes {
 		teamCodes.put("AUSTRALIA", "152");
 		teamCodes.put("ARGENTINA", "128");
 		teamCodes.put("BELGIUM", "275");
-		teamCodes.put("BOSNIA-HERZEGOVIA","2984");
+		teamCodes.put("BOSNIA-HERZEGOVINA","2984");
 		teamCodes.put("BRAZIL", "395");
 		teamCodes.put("CAMEROON", "615");
 		teamCodes.put("CHILE", "550");
@@ -88,6 +88,40 @@ public class TeamCodes {
 		teamCodes.put("UNITED STATES", "2652");
 		teamCodes.put("URUGUAY", "2651");
 		
+		
+		//Other or alternative name for Team in SoccerBase Data source at index 2
+		teamCodes.put("ALGERIA", "ALGERIA");
+		teamCodes.put("AUSTRALIA", "AUSTRALIA");
+		teamCodes.put("ARGENTINA", "ARGENTINA");
+		teamCodes.put("BELGIUM", "BELGIUM");
+		teamCodes.put("BOSNIA-HERZEGOVINA","BOSNIA-HZ.");
+		teamCodes.put("BRAZIL", "BRAZIL");
+		teamCodes.put("CAMEROON", "CAMEROON");
+		teamCodes.put("CHILE", "CHILE");
+		teamCodes.put("COLOMBIA", "COLOMBIA");
+		teamCodes.put("COSTA RICA", "COSTA RICA");
+		teamCodes.put("CROATIA", "CROATIA");
+		teamCodes.put("ECUADOR", "ECUADOR");
+		teamCodes.put("ENGLAND", "ENGLAND");
+		teamCodes.put("FRANCE", "FRANCE");
+		teamCodes.put("GERMANY", "GERMANY");
+		teamCodes.put("GHANA", "GHANA");
+		teamCodes.put("GREECE", "GREECE");
+		teamCodes.put("HONDURAS", "HONDURAS");
+		teamCodes.put("IRAN", "IRAN");
+		teamCodes.put("ITALY", "ITALY");
+		teamCodes.put("IVORY COAST", "IVORY COAST");
+		teamCodes.put("JAPAN", "JAPAN");
+		teamCodes.put("MEXICO", "MEXICO");
+		teamCodes.put("NETHERLANDS", "HOLLAND");
+		teamCodes.put("NIGERIA", "NIGERIA");
+		teamCodes.put("PORTUGAL", "PORTUGAL");
+		teamCodes.put("RUSSIA", "RUSSIA");
+		teamCodes.put("SOUTH KOREA", "SOUTH KOREA");
+		teamCodes.put("SPAIN", "SPAIN");
+		teamCodes.put("SWITZERLAND", "SWITZERLAND");
+		teamCodes.put("UNITED STATES", "USA");
+		teamCodes.put("URUGUAY", "URUGUAY");
 		
 	}
 
