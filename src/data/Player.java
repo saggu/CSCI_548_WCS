@@ -31,7 +31,7 @@ public class Player {
 	}
 	
 	
-	public List<Player> AllPlayers()
+	public static List<Player> AllPlayers()
 	{
 		List<Player> allPlayers = new ArrayList<Player>();
 		
