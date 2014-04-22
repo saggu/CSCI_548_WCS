@@ -24,7 +24,8 @@ public class ESPNGroupMatchesParser {
 	{
 			
 			//JSON
-			JSONObject topLevel = new org.json.simple.JSONObject();
+//			JSONObject topLevel = new org.json.simple.JSONObject();
+		JSONArray jsonArray = new  JSONArray();
 			
 			
 			try {
@@ -33,9 +34,10 @@ public class ESPNGroupMatchesParser {
 				Elements e = document.select("div#my-teams-table");
 				Element teamsTable = e.get(0); 
 				Elements elements = teamsTable.getElementsByClass("mod-content"); //div
+				int c = 0;
 				for (Element element : elements) {
 
-					JSONArray eachDay = new JSONArray();
+					//JSONArray eachDay = new JSONArray();
 					Elements table = element.getElementsByTag("table");
 					Element tableElement = table.get(0);
 					Elements statheadRows = tableElement.select("tr.stathead");
@@ -50,7 +52,8 @@ public class ESPNGroupMatchesParser {
 						oddRow.put("TeamB", oddrow.children().get(3).text());
 						oddRow.put("Stage", oddrow.children().get(4).text());
 						oddRow.put("Venue", oddrow.children().get(6).text());
-						eachDay.add(oddRow);
+						oddRow.put("GameDate", gameDate);
+						jsonArray.add(oddRow);
 					}
 					
 					Elements evenRows = tableElement.select("tr.evenrow");
@@ -61,10 +64,10 @@ public class ESPNGroupMatchesParser {
 						evenRow.put("TeamB", evenrow.children().get(3).text());
 						evenRow.put("Stage", evenrow.children().get(4).text());
 						evenRow.put("Venue", evenrow.children().get(6).text());
-						eachDay.add(evenRow);
+						evenRow.put("GameDate",gameDate);
+						jsonArray.add(evenRow);
 					}
 					
-					topLevel.put(gameDate,eachDay);
 					
 					
 				} //end of for loop
@@ -74,7 +77,7 @@ public class ESPNGroupMatchesParser {
 					//TODO: FIx this, create a new file , if file does not exists
 					//FileWriter file = new FileWriter("C:\\cs548_project\\gameSchedule.json");
 					BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("gameschedule.json"));
-					bufferedWriter.write(topLevel.toJSONString());
+					bufferedWriter.write(jsonArray.toJSONString());
 					bufferedWriter.flush();
 					bufferedWriter.close();
 			 
