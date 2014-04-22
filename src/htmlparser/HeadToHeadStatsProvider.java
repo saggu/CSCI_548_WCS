@@ -34,20 +34,20 @@ public class HeadToHeadStatsProvider {
 		JSONArray toplevel = new JSONArray();
 		
 		// for each group, calculate the head to head stats for six games played by its four teams
-		int  c = 0;
-		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
-			TeamGroups teamGroup = (TeamGroups) iterator.next();
-			System.out.println(teamGroup.getGroupName());
-			System.out.println("----------------------");
-			List<Team> teams = teamGroup.getTeams();
+		for (TeamGroups tg : list) {
+			//System.out.println(tg.getGroupName());
+			//System.out.println("----------------------");
+			List<Team> teams = tg.getTeams();
 
 			//each group has four teams
 			for(int i=0 ; i < 4 ; i++){
 				for (int j = i+1; j < 4  ; j++) {
 					Team a = teams.get(i);
 					Team b = teams.get(j);
+				//	System.out.println("Team A:"+a.getTeamName());
+					//System.out.println("Team B:"+b.getTeamName());
 					//String STATS_URL = URL+"team_id="+2204+"+&team2_id="+717;
-					String STATS_URL = URL+"team_id="+a.teamCodes.get(1)+"&team2_id="+b.teamCodes.get(1);
+					String STATS_URL = URL+"team_id="+a.getTeamCodes().get(1)+"&team2_id="+b.getTeamCodes().get(1);
 					
 					try {
 						Document document = Jsoup.connect(STATS_URL).timeout(TIME_OUT).get();
@@ -55,23 +55,23 @@ public class HeadToHeadStatsProvider {
 						Elements tables =  e.get(0).getElementsByTag("table");
 						
 						if(!tables.isEmpty()) {
-
+							
 							// here, it means the two teams have played in the past.
 							Element table = tables.get(0);
-							JSONObject object = new JSONObject();
+							JSONObject jsonObject = new JSONObject();
 							Element row = table.select("tr.total").get(0);
 							String winsTeamA = row.children().get(1).text();
 							String draws = row.children().get(2).text();
 							String winsTeamB = row.children().get(3).text();
-							object.put("winsTeamA",winsTeamA);
-							object.put("draws",draws);
-							object.put("winsTeamB",winsTeamB);
-							object.put("teamA", a.teamName);
-							object.put("teamACode", a.teamCodes.get(1));
-							object.put("teamB", b.teamName);
-							object.put("teamBCode",b.teamCodes.get(1));
-							object.put("goalsScoredA", 0);
-							object.put("goalsScoredB", 0);
+							jsonObject.put("winsTeamA",winsTeamA);
+							jsonObject.put("draws",draws);
+							jsonObject.put("winsTeamB",winsTeamB);
+							jsonObject.put("teamA", a.getTeamName());
+							jsonObject.put("teamACode", a.getTeamCodes().get(0));
+							jsonObject.put("teamB", b.getTeamName());
+							jsonObject.put("teamBCode",b.getTeamCodes().get(0));
+							jsonObject.put("goalsScoredA", 0);
+							jsonObject.put("goalsScoredB", 0);
 							
 							Element soccerGridTable = document.select("table.soccerGrid").get(0);
 							Elements trMatches = soccerGridTable.select("tr.match");
@@ -96,33 +96,51 @@ public class HeadToHeadStatsProvider {
 								int goalScoredRightside = Integer.parseInt(s.get(1).text());
 								//System.out.println(s.get(1).text());
 								
-								if(left_hand_side_Team.toUpperCase().equals(a.teamName) || left_hand_side_Team.toUpperCase().equals(a.teamCodes.get(2)) ) {
+								if(left_hand_side_Team.toUpperCase().equals(a.getTeamName()) || left_hand_side_Team.toUpperCase().equals(a.getTeamCodes().get(2)) ) {
 									
-									int goalsA = (int) object.get("goalsScoredA") + goalScoredLeftside;
-									object.put("goalsScoredA",goalsA);
+									int goalsA =  (Integer) jsonObject.get("goalsScoredA") + goalScoredLeftside;
+									jsonObject.put("goalsScoredA",goalsA);
 									
-									if(right_hand_side_team.toUpperCase().equals(b.teamName) || right_hand_side_team.toUpperCase().equals(b.teamCodes.get(2))){
-										int goalsB = (int) object.get("goalsScoredB") + goalScoredRightside;
-										object.put("goalsScoredB",goalsB);
+									if(right_hand_side_team.toUpperCase().equals(b.getTeamName()) || right_hand_side_team.toUpperCase().equals(b.getTeamCodes().get(2))){
+										int goalsB = (Integer) jsonObject.get("goalsScoredB") + goalScoredRightside;
+										jsonObject.put("goalsScoredB",goalsB);
 									}
 								}
 								else {
 									//means left hand side team is team B 
-									int goalsB = (int) object.get("goalsScoredB") + goalScoredLeftside;
-									object.put("goalsScoredB",goalsB);
+									int goalsB = (Integer) jsonObject.get("goalsScoredB") + goalScoredLeftside;
+									jsonObject.put("goalsScoredB",goalsB);
 									
-									if(right_hand_side_team.toUpperCase().equals(a.teamName) || right_hand_side_team.toUpperCase().equals(a.teamCodes.get(2))){
-										int goalsA = (int) object.get("goalsScoredA") + goalScoredRightside;
-										object.put("goalsScoredA",goalsA);
+									if(right_hand_side_team.toUpperCase().equals(a.getTeamName()) || right_hand_side_team.toUpperCase().equals(a.getTeamCodes().get(2))){
+										int goalsA = (Integer) jsonObject.get("goalsScoredA") + goalScoredRightside;
+										jsonObject.put("goalsScoredA",goalsA);
 									}
 								}
 								
 								
 							} // for loop ends
 							
-							toplevel.add(object);
+							toplevel.add(jsonObject);
 							
 						} // condition ends
+						
+						else {
+							System.out.println(STATS_URL);
+							
+							JSONObject jsonObject = new JSONObject();
+							jsonObject.put("winsTeamA",0);
+							jsonObject.put("draws",0);
+							jsonObject.put("winsTeamB",0);
+							jsonObject.put("teamA", a.getTeamName());
+							jsonObject.put("teamACode", a.getTeamCodes().get(0));
+							jsonObject.put("teamB", b.getTeamName());
+							jsonObject.put("teamBCode",b.getTeamCodes().get(0));
+							jsonObject.put("goalsScoredA", 0);
+							jsonObject.put("goalsScoredB", 0);
+							toplevel.add(jsonObject);
+							
+							
+						}
 						
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -150,8 +168,8 @@ public class HeadToHeadStatsProvider {
 		System.out.println(toplevel);		
 	}
 	
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		parse();
-	}*/
+	}
 
 }

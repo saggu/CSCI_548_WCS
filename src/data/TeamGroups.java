@@ -5,6 +5,17 @@ import java.util.List;
 
 public class TeamGroups {
 	
+	
+	
+	public TeamGroups(String groupName) {
+		super();
+		this.groupName = groupName;
+		this.teams = new ArrayList<Team>();
+	}
+	public TeamGroups() {
+		
+	}
+
 	private String groupName;
 	
 	public String getGroupName() {
@@ -28,95 +39,71 @@ public class TeamGroups {
 	public List<TeamGroups> TeamGroupDetails()
 	{
 		List<TeamGroups> tg = new ArrayList<TeamGroups>();
-		List<Team> temp = new ArrayList<Team>();
 		
 		//setup the groups
 		
 		//Group - A
-		TeamGroups groupA = new TeamGroups();
-		groupA.groupName = "GROUP A";
-		temp.add(new Team("BRAZIL"));
-		temp.add(new Team("CROATIA"));
-		temp.add(new Team("MEXICO"));
-		temp.add(new Team("CAMEROON"));
-		groupA.teams =  temp;
+		TeamGroups groupA = new TeamGroups("GROUP A");
+		groupA.teams.add(new Team("BRAZIL"));
+		groupA.teams.add(new Team("CROATIA"));
+		groupA.teams.add(new Team("MEXICO"));
+		groupA.teams.add(new Team("CAMEROON"));
 		tg.add(groupA);
-		temp.clear();
 		
 		//Group - B
-		TeamGroups groupB = new TeamGroups();
-		groupB.groupName = "GROUP B";
-		temp.add(new Team("SPAIN"));
-		temp.add(new Team("NETHERLANDS"));
-		temp.add(new Team("CHILE"));
-		temp.add(new Team("AUSTRALIA"));
-		groupB.teams = temp;
+		TeamGroups groupB = new TeamGroups("GROUP B");
+		groupB.teams.add(new Team("SPAIN"));
+		groupB.teams.add(new Team("NETHERLANDS"));
+		groupB.teams.add(new Team("CHILE"));
+		groupB.teams.add(new Team("AUSTRALIA"));
 		tg.add(groupB);
-		temp.clear();
 		
 		//Group - C
-		TeamGroups groupC = new TeamGroups();
-		groupC.groupName = "GROUP C";
-		temp.add(new Team("COLOMBIA"));
-		temp.add(new Team("GREECE"));
-		temp.add(new Team("JAPAN"));
-		temp.add(new Team("IVORY COAST"));
-		groupC.teams = temp;
+		TeamGroups groupC = new TeamGroups("GROUP C");
+		groupC.teams.add(new Team("COLOMBIA"));
+		groupC.teams.add(new Team("GREECE"));
+		groupC.teams.add(new Team("JAPAN"));
+		groupC.teams.add(new Team("IVORY COAST"));
 		tg.add(groupC);
-		temp.clear();
 		
 		//Group - D
-		TeamGroups groupD = new TeamGroups();
-		groupD.groupName = "GROUP D";
-		temp.add(new Team("URUGUAY"));
-		temp.add(new Team("COSTA RICA"));
-		temp.add(new Team("ENGLAND"));
-		temp.add(new Team("ITALY"));
-		groupD.teams = temp;
+		TeamGroups groupD = new TeamGroups("GROUP D");
+		groupD.teams.add(new Team("URUGUAY"));
+		groupD.teams.add(new Team("COSTA RICA"));
+		groupD.teams.add(new Team("ENGLAND"));
+		groupD.teams.add(new Team("ITALY"));
 		tg.add(groupD);
-		temp.clear();
 		
 		//Group - E
-		TeamGroups groupE = new TeamGroups();
-		groupE.groupName = "GROUP E";
-		temp.add(new Team("SWITZERLAND"));
-		temp.add(new Team("ECUADOR"));
-		temp.add(new Team("FRANCE"));
-		temp.add(new Team("HONDURAS"));
-		groupE.teams = temp;
+		TeamGroups groupE = new TeamGroups("GROUP E");
+		groupE.teams.add(new Team("SWITZERLAND") );
+		groupE.teams.add(new Team("ECUADOR") );
+		groupE.teams.add(new Team("FRANCE") );
+		groupE.teams.add(new Team("HONDURAS") );
 		tg.add(groupE);
-		temp.clear();
 		
 		//Group - F
-		TeamGroups groupF = new TeamGroups();
-		groupF.groupName = "GROUP F";
-		temp.add(new Team("ARGENTINA"));
-		temp.add(new Team("BOSNIA-HERZEGOVIA"));
-		temp.add(new Team("IRAN"));
-		temp.add(new Team("NIGERIA"));
-		groupF.teams = temp;
+		TeamGroups groupF = new TeamGroups("GROUP F");
+		groupF.teams.add(new Team("ARGENTINA"));
+		groupF.teams.add(new Team("BOSNIA-HERZEGOVINA"));
+		groupF.teams.add(new Team("IRAN"));
+		groupF.teams.add(new Team("NIGERIA"));
 		tg.add(groupF);
-		temp.clear();
 		
 		//Group - G
-		TeamGroups groupG = new TeamGroups();
-		groupG.groupName = "GROUP G";
-		temp.add(new Team("GERMANY"));
-		temp.add(new Team("PORTUGAL"));
-		temp.add(new Team("GHANA"));
-		temp.add(new Team("UNITED STATES"));
-		groupG.teams = temp;
+		TeamGroups groupG = new TeamGroups("GROUP G");
+		groupG.teams.add(new Team("GERMANY"));
+		groupG.teams.add(new Team("PORTUGAL"));
+		groupG.teams.add(new Team("GHANA"));
+		groupG.teams.add(new Team("UNITED STATES"));
 		tg.add(groupG);
-		temp.clear();
 		
 		//Group - H
-		TeamGroups groupH = new TeamGroups();
-		groupH.groupName = "GROUP H";
-		temp.add(new Team("BELGIUM"));
-		temp.add(new Team("ALGERIA"));
-		temp.add(new Team("RUSSIA"));
-		temp.add(new Team("SOUTH KOREA"));
-		groupH.teams = temp;
+		TeamGroups groupH = new TeamGroups("GROUP H");
+		groupH.teams.add(new Team("BELGIUM"));
+		groupH.teams.add(new Team("ALGERIA"));
+		groupH.teams.add(new Team("RUSSIA"));
+		groupH.teams.add(new Team("SOUTH KOREA"));
 		tg.add(groupH);
 		
 		return tg;
