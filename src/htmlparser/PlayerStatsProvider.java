@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.jar.Attributes;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -34,7 +35,7 @@ public class PlayerStatsProvider {
 			String playerName = player.getPlayerName();
 			String playerCode = player.getPlayerCodes().get(0);
 			String espnPlayerCode = player.getPlayerCodes().get(1);
-			
+			String playerNameCode = player.getPlayerCodes().get(2);
 			if(espnPlayerCode.equals("notpresent")){
 				if(playerName.equals("JULIO CESAR"))
 					URL = "http://espnfc.com/player?id=39748&cc=5901";
@@ -44,12 +45,12 @@ public class PlayerStatsProvider {
 					URL = "http://espnfc.com/player?id=38178&cc=5901";
 			}
 			else {
-			  URL = "http://espnfc.com/player/_/id/"+espnPlayerCode+"/"+player.getPlayerCodes().get(2)+"?cc=5901";
+			  URL = "http://espnfc.com/player/_/id/"+espnPlayerCode+"/"+playerNameCode+"?cc=5901";
 			  System.out.println(URL);
 			}
 			
 			try {
-				Elements tablesToBeConsidered = getRelevantStats(URL);
+				Elements tablesToBeConsidered = getRelevantStats(URL,espnPlayerCode,playerNameCode);
 				int gamesStarted = 0;
 				int usedAsSubstitute = 0;
 				int goals = 0;
@@ -113,11 +114,31 @@ public class PlayerStatsProvider {
 		}
 	}
 
-	private static Elements getRelevantStats(String URL) throws IOException {
+	private static Elements getRelevantStats(String URL, String espnPlayerCode, String playerNameCode) throws IOException {
 		Document document = Jsoup.connect(URL).timeout(TIME_OUT).get();
 		System.out.println("Fetched..");
 		Elements contents = document.select("div#content-change");
 		Element e = contents.get(0);
+		
+		//check for ui-tabs-nav
+		//Cases where the first tab is Profiles, followed by Careers. We are interested only in Careers tab whose id is statsTab.
+		Elements tabContents  = document.select("ul.ui-tabs-nav");
+		if(!tabContents.isEmpty()){
+			Element ultab = tabContents.get(0);
+			Element firstTab = ultab.child(0);
+			org.jsoup.nodes.Attributes attributes = firstTab.attributes(); //hasAttr("id");
+			String idValue = attributes.get("id");
+			if(idValue.equals("profileTab")){
+				URL = "http://www.espnfc.com";
+				Elements statsTab  = ultab.getElementsByAttributeValue("id", "statsTab");
+				//System.out.println(statsTab.get(0).child(0).attributes().get("href"));
+				URL +=statsTab.get(0).child(0).attributes().get("href");
+				System.out.println("Retrying with URL:"+URL);
+				document = Jsoup.connect(URL).timeout(TIME_OUT).get();
+				e = document;
+			}
+		}
+		
 		Elements tables = e.getElementsByTag("table");
 		Elements tablesToBeConsidered = new Elements();
 		for (Element table : tables) {
