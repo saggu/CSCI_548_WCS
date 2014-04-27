@@ -1,0 +1,145 @@
+doctype
+html
+  head
+    title #{title} - World Cup SoothSayer
+    script(type='text/javascript').
+     function selectedCountryA()
+
+      { 
+        var e = document.getElementById("teamA");
+        var strCountry = e.options[e.selectedIndex].value;
+        
+        var im1 = document.getElementById("imgA");
+        im1.src = strCountry;
+        //alert(im1);
+
+       // global.teamA = strCountry;
+        //return strCountry;
+      } 
+      function selectedCountryB()
+      { 
+        var e = document.getElementById("teamB");
+        var strCountry = e.options[e.selectedIndex].value;
+        
+        var im1 = document.getElementById("imgB");
+        im1.src = strCountry;
+        //alert(im1);
+
+       // global.teamA = strCountry;
+        //return strCountry;
+      }
+
+      function Reset()
+      {
+        document.getElementById("teamA").selectedIndex = "0";
+        document.getElementById("teamB").selectedIndex = "0";
+      } 
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body(onload = "Reset()")
+   header
+     h1 Group Details
+   
+   .onetooneteam 
+     table(style='width:100%')
+      tr
+        td 
+          colhead Group A
+        td
+          colhead Group B
+        td
+          colhead Group C
+        td 
+          colhead Group D
+      tr
+        tr
+          .groupblock
+            td 
+             img(src='images/bra.png') 
+             p Brazil
+            td
+             img(src='images/jpn.png')
+            td
+             img(src='images/mex.png')
+            td
+             img(src='images/alg.png')
+        tr
+          td
+           img(src='images/arg.png')
+          td
+           img(src='images/por.png')
+          td
+           img(src='images/kor.png')
+          td
+           img(src='images/ecu.png') 
+        tr
+          td
+           img(src='images/hon.png')
+          td
+           img(src='images/col.png')
+          td
+           img(src='images/eng.png')
+          td
+           img(src='images/ger.png')
+        tr
+          td
+           img(src='images/chi.png')
+          td
+           img(src='images/ita.png')
+          td
+           img(src='images/esp.png')
+          td
+           img(src='images/gre.png')
+       tr
+        td 
+          colhead Group A
+        td
+          colhead Group B
+        td
+          colhead Group C
+        td 
+          colhead Group D
+      tr
+        tr
+          .groupblock
+            td 
+             img(src='images/bra.png') 
+            td
+             img(src='images/jpn.png')
+            td
+             img(src='images/mex.png')
+            td
+             img(src='images/alg.png')
+        tr
+          td
+           img(src='images/arg.png')
+          td
+           img(src='images/por.png')
+          td
+           img(src='images/kor.png')
+          td
+           img(src='images/ecu.png') 
+        tr
+          td
+           img(src='images/hon.png')
+          td
+           img(src='images/col.png')
+          td
+           img(src='images/eng.png')
+          td
+           img(src='images/ger.png')
+        tr
+          td
+           img(src='images/chi.png')
+          td
+           img(src='images/ita.png')
+          td
+           img(src='images/esp.png')
+          td
+           img(src='images/gre.png')
+   footer
+     p Created by Amandeep Singh and Margi Patel
+     p University of Southern California 
+
+
+ 
+           
