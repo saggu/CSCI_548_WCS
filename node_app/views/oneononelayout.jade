@@ -7,32 +7,59 @@ html
 
       { 
         var e = document.getElementById("teamA");
-        var strCountry = e.options[e.selectedIndex].value;
+        var strCountryURI = e.options[e.selectedIndex].value;
         
+        var b = document.getElementById("teamB");
+        var strCountryBURI = b.options[b.selectedIndex].value;
         var im1 = document.getElementById("imgA");
-        im1.src = strCountry;
-        //alert(im1);
-
-       // global.teamA = strCountry;
-        //return strCountry;
+        
+         if(strCountryURI == strCountryBURI ) {
+         alert("Select different teams");
+         im1.src = "/images/country/question.jpg";
+         e.selectedIndex = "0";
+         return;
+        }
+        
+        var trp = !{JSON.stringify(alltriples)};
+        var r = trp[strCountryURI]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#UniqueCode'][0].value +".jpg";
+        
+        im1.src = "/images/country/"+r;
       } 
       function selectedCountryB()
       { 
+      
         var e = document.getElementById("teamB");
-        var strCountry = e.options[e.selectedIndex].value;
-        
+        var strCountryURI = e.options[e.selectedIndex].value;
         var im1 = document.getElementById("imgB");
-        im1.src = strCountry;
-        //alert(im1);
-
-       // global.teamA = strCountry;
-        //return strCountry;
+        
+        var a = document.getElementById("teamA");
+        var strCountryAURI = a.options[a.selectedIndex].value;
+        
+        if(strCountryURI == strCountryAURI ) {
+         alert("Select different teams");
+         im1.src = "/images/country/question.jpg";
+         e.selectedIndex = "0";
+         return;
+        }
+        
+        
+        var trp = !{JSON.stringify(alltriples)};
+        var r = trp[strCountryURI]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#UniqueCode'][0].value +".jpg";
+        im1.src = "/images/country/"+r;
+      
       }
 
       function Reset()
       {
         document.getElementById("teamA").selectedIndex = "0";
         document.getElementById("teamB").selectedIndex = "0";
+      }
+      function doPrediction()
+      { var teamA = document.getElementById("teamA");
+        var teamB = document.getElementById("teamB"); 
+        var teamAName = teamA.options[teamA.selectedIndex].value;
+        var teamBName = teamB.options[teamB.selectedIndex].value;  
+       
       } 
     link(rel='stylesheet', href='/stylesheets/style.css')
   body(onload = "Reset()")
@@ -43,84 +70,40 @@ html
       .dropdownleftlabel Team A
       
       .dropdownleft
-        <select id="teamA" onChange = "selectedCountryA()">
-        <option value = "-1">Select</option>
-        <option value = "/images/country/alg.jpg">ALGERIA</option>
-        <option value = "/images/country/arg.jpg">ARGENTINA</option>
-        <option value = "/images/country/aus.jpg">AUSTRALIA</option>
-        <option value = "/images/country/bel.jpg">BELGIUM</option>
-        <option value = "/images/country/bih.jpg">BOSNIA-HERZEGOVINA</option>
-        <option value = "/images/country/bra.jpg">BRAZIL</option>
-        <option value = "/images/country/cmr.jpg">CAMEROON</option>
-        <option value = "/images/country/chi.jpg">CHILE</option>
-        <option value = "/images/country/col.jpg">COLOMBIA</option>
-        <option value = "/images/country/crc.jpg">COSTA RICA</option>
-        <option value = "/images/country/civ.jpg">IVORY COAST</option>
-        <option value = "/images/country/cro.jpg">CROATIA</option>
-        <option value = "/images/country/ecu.jpg">ECUADOR</option>
-        <option value = "/images/country/eng.jpg">ENGLAND</option>
-        <option value = "/images/country/fra.jpg">FRANCE</option>
-        <option value = "/images/country/ger.jpg">GERMANY</option>
-        <option value = "/images/country/gha.jpg">GHANA</option>
-        <option value = "/images/country/gre.jpg">GREECE</option>
-        <option value = "/images/country/hon.jpg">HONDURAS</option>
-        <option value = "/images/country/irn.jpg">IRAN</option>
-        <option value = "/images/country/ita.jpg">ITALY</option>
-        <option value = "/images/country/jpn.jpg">JAPAN</option>
-        <option value = "/images/country/kor.jpg">SOUTH KOREA</option>
-        <option value = "/images/country/mex.jpg">MEXICO</option>
-        <option value = "/images/country/ned.jpg">NETHERLANDS</option>
-        <option value = "/images/country/nga.jpg">NIGERIA</option>
-        <option value = "/images/country/por.jpg">PORTUGAL</option>
-        <option value = "/images/country/rus.jpg">RUSSIA</option>
-        <option value = "/images/country/esp.jpg">SPAIN</option>
-        <option value = "/images/country/sui.jpg">SWITZERLAND</option>
-        <option value = "/images/country/uru.jpg">URUGUAY</option>
-        <option value = "/images/country/usa.jpg">UNITED STATES</option>
-        </select>
+       select(id="teamA",onChange = "selectedCountryA()" form="formprediction" name="teamA")
+        option(value = "-1") Select
+        if(selectedGroupUri != "")
+         each r,i in alltriples[selectedGroupUri].hasTeamUris
+          - var img = alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#highResImage'][0].value
+           option(value="#{r}") #{alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#Label'][0].value}
+        else
+         each v, index in groupUris
+          each r,i in alltriples[v].hasTeamUris
+           - var img = alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#highResImage'][0].value
+           option(value="#{r}") #{alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#Label'][0].value}
       .dropdownrightlabel Team B
       
       .dropdownright
-        <select id="teamB" onChange = "selectedCountryB()">
-        <option value = "-1">Select</option>
-        <option value = "/images/country/alg.jpg">ALGERIA</option>
-        <option value = "/images/country/arg.jpg">ARGENTINA</option>
-        <option value = "/images/country/aus.jpg">AUSTRALIA</option>
-        <option value = "/images/country/bel.jpg">BELGIUM</option>
-        <option value = "/images/country/bih.jpg">BOSNIA-HERZEGOVINA</option>
-        <option value = "/images/country/bra.jpg">BRAZIL</option>
-        <option value = "/images/country/cmr.jpg">CAMEROON</option>
-        <option value = "/images/country/chi.jpg">CHILE</option>
-        <option value = "/images/country/col.jpg">COLOMBIA</option>
-        <option value = "/images/country/crc.jpg">COSTA RICA</option>
-        <option value = "/images/country/civ.jpg">IVORY COAST</option>
-        <option value = "/images/country/cro.jpg">CROATIA</option>
-        <option value = "/images/country/ecu.jpg">ECUADOR</option>
-        <option value = "/images/country/eng.jpg">ENGLAND</option>
-        <option value = "/images/country/fra.jpg">FRANCE</option>
-        <option value = "/images/country/ger.jpg">GERMANY</option>
-        <option value = "/images/country/gha.jpg">GHANA</option>
-        <option value = "/images/country/gre.jpg">GREECE</option>
-        <option value = "/images/country/hon.jpg">HONDURAS</option>
-        <option value = "/images/country/irn.jpg">IRAN</option>
-        <option value = "/images/country/ita.jpg">ITALY</option>
-        <option value = "/images/country/jpn.jpg">JAPAN</option>
-        <option value = "/images/country/kor.jpg">SOUTH KOREA</option>
-        <option value = "/images/country/mex.jpg">MEXICO</option>
-        <option value = "/images/country/ned.jpg">NETHERLANDS</option>
-        <option value = "/images/country/nga.jpg">NIGERIA</option>
-        <option value = "/images/country/por.jpg">PORTUGAL</option>
-        <option value = "/images/country/rus.jpg">RUSSIA</option>
-        <option value = "/images/country/esp.jpg">SPAIN</option>
-        <option value = "/images/country/sui.jpg">SWITZERLAND</option>
-        <option value = "/images/country/uru.jpg">URUGUAY</option>
-        <option value = "/images/country/usa.jpg">UNITED STATES</option>
-        </select>
+       select(id="teamB" onChange = "selectedCountryB()" form="formprediction" name="teamB")
+        option(value = "-1") Select
+        if(selectedGroupUri)
+         each r,i in alltriples[selectedGroupUri].hasTeamUris
+          - var img = alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#highResImage'][0].value
+           option(value="#{r}") #{alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#Label'][0].value}
+        else  
+         each v, index in groupUris
+          each r,i in alltriples[v].hasTeamUris
+           - var img = alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#highResImage'][0].value
+           option(value="#{r}") #{alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#Label'][0].value} 
       versus v/s
      .leftteam
       img(id='imgA',src= '/images/country/question.jpg')
      .rightteam  
       img(id = 'imgB',src='/images/country/question.jpg')
+      
+     form(name="prediction",class='formprediction',id="formprediction",method="get",action="/predict")
+      button(class="buttonprediction", type="submit",form="formprediction").
+       Press here
    footer
      p Created by Amandeep Singh and Margi Patel
      p University of Southern California 

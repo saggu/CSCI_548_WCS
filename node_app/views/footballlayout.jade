@@ -10,12 +10,15 @@ html
     .leftpart
     .rightpart
      .top
-      p Who will win ?
+      p 
      .middle
      .bottom
-      form(name="userinputs",method="get",action="/userinputs")
-       button(class="btn1", type="submit").
-        Click here to know
+      form(name="oneonone",class='form1',id="form1",method="get",action="/oneonone")
+      form(name="groups",class='form2',id='form2',method="get",action="/groups")
+      button(class="btn1", type="submit",form="form1").
+       One-to-One
+      button(class="btn2", type="submit",form="form2").
+       All Groups
    footer
      p Created by Amandeep Singh and Margi Patel
      p University of Southern California 

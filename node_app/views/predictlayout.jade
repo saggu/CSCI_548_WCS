@@ -1,0 +1,131 @@
+doctype
+html
+  head
+    title #{title} - My Home Page
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+   header
+     h1 Welcome to Football Soothsayer
+   .predictdiv
+    table(class="predictTable1")
+     tr(class="predictTable1row")
+      td(class="predictTable1td")
+       p(class="pararctb1")
+       - var r = selectedTeamUris[0]
+        - var img = alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#UniqueCode'][0].value 
+         img(src="/images/"+"#{img}"+".png")
+         p(class="abc")
+          = alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#Label'][0].value
+      td(class="predictTable1td")
+       = "Head-to-Head"
+      td(class="predictTable1td")
+       p(class="pararctb1")
+       - var s = selectedTeamUris[1]
+        - var img = alltriples[s]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#UniqueCode'][0].value
+         img(src="/images/"+"#{img}"+".png")
+         p(class="abc")
+          = alltriples[s]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#Label'][0].value
+       
+     tr(class="predictTable1row")
+      td(class="predictTable1td")
+       - var r = selectedTeamUris[0]
+       = alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#RecentForm'][0].value
+      td(class="predictTable1td")
+       table(class="innertable")
+        tr 
+          td(class="INNERTABLETD")
+           if(h2hUri)
+            - var AWINS = alltriples[h2hUri]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#TeamAWins'][0].value
+            = AWINS
+           else
+            = "0" 
+          td(class="INNERTABLETD")
+           = "WINS"
+          td(class="INNERTABLETD")
+           if(h2hUri)
+            - var BWINS = alltriples[h2hUri]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#TeamBWins'][0].value
+            = BWINS
+           else
+            = "0"
+        tr 
+          td(class="INNERTABLETD")
+           if(h2hUri)
+            - var DRAWS = alltriples[h2hUri]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#DrawGames'][0].value
+            = DRAWS
+           else
+            = "0"
+          td(class="INNERTABLETD")
+           = "DRAWS"
+          td(class="INNERTABLETD")
+           if(h2hUri)
+            - var DRAWS = alltriples[h2hUri]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#DrawGames'][0].value
+            = DRAWS
+           else
+            = "0"
+        tr 
+          td(class="INNERTABLETD")
+           if(h2hUri)
+            - var AGS = alltriples[h2hUri]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#TeamAGS'][0].value
+            = AGS
+           else
+            = "0"
+          td(class="INNERTABLETD")
+           = "GOALS SCORED"
+          td(class="INNERTABLETD")
+           if(h2hUri)
+            - var BGS = alltriples[h2hUri]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#TeamBGS'][0].value
+            = BGS
+           else
+            = "0"
+      td(class="predictTable1td")
+       - var s = selectedTeamUris[1]
+       = alltriples[s][['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#RecentForm']][0].value
+    .kpdivleft
+     table(class="keyPlayersA")
+      caption(class="centercaption")
+       = "Key Players"
+      tr
+      - var s = selectedTeamUris[0]
+      - var kplys = alltriples[s]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#KeyPlayer']
+       each v,index in kplys
+        td(class="colspace")
+         p
+         - var i = alltriples[v.value]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#imgPath'][0].value
+          img(src="/images/players/"+"#{i}")
+          = alltriples[v.value]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#Label'][0].value
+          - var form =  playerFormUris[v.value]
+          img(src="/images/"+form)
+    
+    .winningteamdiv
+     table(class="winninteamtable")
+      caption(class="centercaptionwinning")
+        = "Winning Team"
+      tr
+       td
+        - var w = winningTeamUri;
+        - var a = alltriples[winningTeamUri]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#highResImage'][0].value
+        img(src="/images/country/"+a)
+        p(class="centerwinning")
+         = alltriples[w]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#Label'][0].value
+     
+    .kpdivright
+     table(class="keyPlayersB")
+      caption(class="centercaption")
+       = "Key Players"
+      tr
+      - var s = selectedTeamUris[1]
+      - var kplys = alltriples[s]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#KeyPlayer']
+       each v,index in kplys
+        td(class="colspace")
+         p
+         - var i = alltriples[v.value]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#imgPath'][0].value
+          img(src="/images/players/"+"#{i}")
+          = alltriples[v.value]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#Label'][0].value
+          - var form =  playerFormUris[v.value]
+          img(src="/images/"+form)     
+        
+   footer
+     p Created by Amandeep Singh and Margi Patel
+     p University of Southern California 
+     
+           

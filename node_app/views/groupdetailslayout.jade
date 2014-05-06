@@ -8,25 +8,15 @@ html
       { 
         var e = document.getElementById("teamA");
         var strCountry = e.options[e.selectedIndex].value;
-        
         var im1 = document.getElementById("imgA");
         im1.src = strCountry;
-        //alert(im1);
-
-       // global.teamA = strCountry;
-        //return strCountry;
       } 
       function selectedCountryB()
       { 
         var e = document.getElementById("teamB");
         var strCountry = e.options[e.selectedIndex].value;
-        
         var im1 = document.getElementById("imgB");
         im1.src = strCountry;
-        //alert(im1);
-
-       // global.teamA = strCountry;
-        //return strCountry;
       }
 
       function Reset()
@@ -40,106 +30,53 @@ html
      h1 Group Details
    
    .onetooneteam 
-     table(style='width:100%')
-      tr
-        td 
-          colhead Group A
-        td
-          colhead Group B
-        td
-          colhead Group C
-        td 
-          colhead Group D
-      tr
-        tr
-          .groupblock
-            td 
-             img(src='images/bra.png') 
-             p Brazil
-            td
-             img(src='images/jpn.png')
-            td
-             img(src='images/mex.png')
-            td
-             img(src='images/alg.png')
-        tr
-          td
-           img(src='images/arg.png')
-          td
-           img(src='images/por.png')
-          td
-           img(src='images/kor.png')
-          td
-           img(src='images/ecu.png') 
-        tr
-          td
-           img(src='images/hon.png')
-          td
-           img(src='images/col.png')
-          td
-           img(src='images/eng.png')
-          td
-           img(src='images/ger.png')
-        tr
-          td
-           img(src='images/chi.png')
-          td
-           img(src='images/ita.png')
-          td
-           img(src='images/esp.png')
-          td
-           img(src='images/gre.png')
-       tr
-        td 
-          colhead Group A
-        td
-          colhead Group B
-        td
-          colhead Group C
-        td 
-          colhead Group D
-      tr
-        tr
-          .groupblock
-            td 
-             img(src='images/bra.png') 
-            td
-             img(src='images/jpn.png')
-            td
-             img(src='images/mex.png')
-            td
-             img(src='images/alg.png')
-        tr
-          td
-           img(src='images/arg.png')
-          td
-           img(src='images/por.png')
-          td
-           img(src='images/kor.png')
-          td
-           img(src='images/ecu.png') 
-        tr
-          td
-           img(src='images/hon.png')
-          td
-           img(src='images/col.png')
-          td
-           img(src='images/eng.png')
-          td
-           img(src='images/ger.png')
-        tr
-          td
-           img(src='images/chi.png')
-          td
-           img(src='images/ita.png')
-          td
-           img(src='images/esp.png')
-          td
-           img(src='images/gre.png')
+     table(class="outertable")
+      tr(class="outertablerows")
+       each v, index in groupUris
+        if(index < 4)
+         td(class="colheadstyletd")
+          - var groupLabel = alltriples[v]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#Label'][0].value
+          a(href='/oneonone?group='+v) #{groupLabel}
+          table(class="tb1")
+           tr
+            each r,i in alltriples[v].hasTeamUris
+             if(i < 2)
+              td(class="rctb1")
+               p(class="pararctb1")
+               = alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#Label'][0].value
+               - var img = alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#UniqueCode'][0].value 
+                img(src="/images/"+"#{img}"+".png")
+           tr
+            each r,i in alltriples[v].hasTeamUris 
+             if(i >= 2)
+              td(class="rctb1")
+               p
+               = alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#Label'][0].value
+               - var img = alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#UniqueCode'][0].value
+               img(src="/images/"+"#{img}"+".png")
+      tr(class="outertablerows")
+       each v, index in groupUris
+        if(index >= 4)
+         td(class="colheadstyletd")
+          - var groupLabel = alltriples[v]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#Label'][0].value
+          a(href='/oneonone?group='+v) #{groupLabel}
+          table(class="tb1")
+           tr
+            each r,i in alltriples[v].hasTeamUris
+             if(i < 2)
+              td(class="rctb1")
+               p(class="pararctb1")
+               = alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#Label'][0].value
+               - var img = alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#UniqueCode'][0].value 
+               img(src="/images/"+"#{img}"+".png")
+           tr 
+            each r,i in alltriples[v].hasTeamUris
+             if(i >= 2) 
+              td(class="rctb1")
+               p
+               = alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#Label'][0].value
+               - var img = alltriples[r]['http://www.semanticweb.org/saggu/ontologies/2014/3/FIFAWC#UniqueCode'][0].value
+               img(src="/images/"+"#{img}"+".png")
    footer
-     p Created by Amandeep Singh and Margi Patel
-     p University of Southern California 
-
-
- 
-           
+    p Created by Amandeep Singh and Margi Patel
+    p University of Southern California 
